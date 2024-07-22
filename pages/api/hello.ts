@@ -8,5 +8,10 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ message: 'こんにちは' });
+  if (req.method === 'POST') {
+    res.status(200).json({ message: 'こんにちは' });
+  } else {
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 }

@@ -1,23 +1,28 @@
-// pages/index.js
 import { useState } from 'react';
 
 export default function Home() {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<string>('');
 
-  const fetchMessage = async () => {
+  const sendMessage = async () => {
     try {
-      const response = await fetch('/api/hello');
+      const response = await fetch('/api/hello', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+      });
       const data = await response.json();
       setMessage(data.message);
     } catch (error) {
-      console.error('Error fetching message:', error);
+      console.error('Error sending message:', error);
     }
   };
 
   return (
     <div>
       <h1>Home Page</h1>
-      <button onClick={fetchMessage}>Fetch Message</button>
+      <button onClick={sendMessage}>Send Message</button>
       <p>{message}</p>
     </div>
   );
