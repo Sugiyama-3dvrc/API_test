@@ -10,7 +10,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ token: 'さようなら' }),
       });
       const data = await response.json();
       setMessage(data.message);
